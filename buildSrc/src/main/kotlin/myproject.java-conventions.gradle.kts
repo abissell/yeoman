@@ -5,6 +5,7 @@ plugins {
     java
     id("net.ltgt.errorprone")
     id("net.ltgt.nullaway")
+    id("com.diffplug.spotless")
 }
 
 java {
@@ -33,6 +34,13 @@ dependencies {
 
 nullaway {
     onlyNullMarked = true
+}
+
+spotless {
+    java {
+        googleJavaFormat().aosp()
+        removeUnusedImports()
+    }
 }
 
 tasks.withType<JavaCompile>().configureEach {
