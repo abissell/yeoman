@@ -1,5 +1,10 @@
+import net.ltgt.gradle.errorprone.errorprone
+import net.ltgt.gradle.nullaway.nullaway
+
 plugins {
     java
+    id("net.ltgt.errorprone")
+    id("net.ltgt.nullaway")
 }
 
 java {
@@ -15,18 +20,29 @@ repositories {
     mavenCentral()
 }
 
+val catalog = extensions.getByType<VersionCatalogsExtension>().named("libs")
+
+dependencies {
+    errorprone(catalog.findLibrary("errorprone-core").get())
+    errorprone(catalog.findLibrary("nullaway").get())
+    implementation(catalog.findLibrary("jspecify").get())
+
+    testImplementation(catalog.findLibrary("org-junit-jupiter-junit-jupiter").get())
+    testRuntimeOnly(catalog.findLibrary("org-junit-platform-junit-platform-launcher").get())
+}
+
+nullaway {
+    onlyNullMarked = true
+}
+
 tasks.withType<JavaCompile>().configureEach {
     options.compilerArgs.add("--enable-preview")
+    options.errorprone.nullaway {
+        error()
+    }
 }
 
 tasks.test {
     useJUnitPlatform()
     jvmArgs("--enable-preview")
-}
-
-val catalog = extensions.getByType<VersionCatalogsExtension>().named("libs")
-
-dependencies {
-    testImplementation(catalog.findLibrary("org-junit-jupiter-junit-jupiter").get())
-    testRuntimeOnly(catalog.findLibrary("org-junit-platform-junit-platform-launcher").get())
 }

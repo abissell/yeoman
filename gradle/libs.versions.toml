@@ -1,6 +1,16 @@
 [versions]
 org-junit-jupiter-junit-jupiter = "6.0.3"
+errorprone = "2.47.0"
+nullaway = "0.13.1"
+jspecify = "1.0.0"
 
 [libraries]
 org-junit-jupiter-junit-jupiter = { module = "org.junit.jupiter:junit-jupiter", version.ref = "org-junit-jupiter-junit-jupiter" }
 org-junit-platform-junit-platform-launcher = { module = "org.junit.platform:junit-platform-launcher" }
+errorprone-core = { module = "com.google.errorprone:error_prone_core", version.ref = "errorprone" }
+nullaway = { module = "com.uber.nullaway:nullaway", version.ref = "nullaway" }
+jspecify = { module = "org.jspecify:jspecify", version.ref = "jspecify" }
+
+[plugins]
+errorprone = { id = "net.ltgt.errorprone", version = "5.0.0" }
+nullaway = { id = "net.ltgt.nullaway", version = "3.0.0" }
