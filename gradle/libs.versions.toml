@@ -3,6 +3,7 @@ org-junit-jupiter-junit-jupiter = "6.0.3"
 errorprone = "2.47.0"
 nullaway = "0.13.1"
 jspecify = "1.0.0"
+metadata-extractor = "2.19.0"
 
 [libraries]
 org-junit-jupiter-junit-jupiter = { module = "org.junit.jupiter:junit-jupiter", version.ref = "org-junit-jupiter-junit-jupiter" }
@@ -10,6 +11,7 @@ org-junit-platform-junit-platform-launcher = { module = "org.junit.platform:juni
 errorprone-core = { module = "com.google.errorprone:error_prone_core", version.ref = "errorprone" }
 nullaway = { module = "com.uber.nullaway:nullaway", version.ref = "nullaway" }
 jspecify = { module = "org.jspecify:jspecify", version.ref = "jspecify" }
+metadata-extractor = { module = "com.drewnoakes:metadata-extractor", version.ref = "metadata-extractor" }
 
 [plugins]
 errorprone = { id = "net.ltgt.errorprone", version = "5.0.0" }
