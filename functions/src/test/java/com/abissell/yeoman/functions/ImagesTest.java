@@ -58,6 +58,28 @@ final class ImagesTest {
     }
 
     @Test
+    void readsImageTsFromTiffWithExif() throws Exception {
+        var path = testResource("exif-with-ts.tif");
+        var result = Images.created(path);
+        assertInstanceOf(Result.Ok.class, result);
+        var ok = (Result.Ok<ImageTs>) result;
+        assertInstanceOf(ImageTs.Unzoned.class, ok.value());
+        var unzoned = (ImageTs.Unzoned) ok.value();
+        assertEquals(LocalDateTime.of(2024, 1, 15, 14, 30, 0), unzoned.dateTime());
+    }
+
+    @Test
+    void readsImageTsFromPngWithExif() throws Exception {
+        var path = testResource("exif-with-ts.png");
+        var result = Images.created(path);
+        assertInstanceOf(Result.Ok.class, result);
+        var ok = (Result.Ok<ImageTs>) result;
+        assertInstanceOf(ImageTs.Unzoned.class, ok.value());
+        var unzoned = (ImageTs.Unzoned) ok.value();
+        assertEquals(LocalDateTime.of(2024, 1, 15, 14, 30, 0), unzoned.dateTime());
+    }
+
+    @Test
     void utcRejectsNonUtcZone() {
         var nonUtc =
                 ZonedDateTime.of(LocalDateTime.of(2024, 1, 15, 14, 30, 0), ZoneId.of("US/Eastern"));
