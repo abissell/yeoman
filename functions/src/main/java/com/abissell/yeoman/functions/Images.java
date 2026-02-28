@@ -1,6 +1,7 @@
 package com.abissell.yeoman.functions;
 
 import com.abissell.yeoman.functions.util.Result;
+import com.abissell.yeoman.functions.util.Strings;
 import com.drew.imaging.ImageMetadataReader;
 import com.drew.imaging.ImageProcessingException;
 import com.drew.metadata.exif.ExifDirectoryBase;
@@ -16,7 +17,7 @@ import java.util.List;
 import org.jspecify.annotations.Nullable;
 
 public enum Images {
-    ;
+    ; // Enum singleton
 
     private static final DateTimeFormatter EXIF_FORMAT =
             DateTimeFormatter.ofPattern("yyyy:MM:dd HH:mm:ss");
@@ -68,7 +69,8 @@ public enum Images {
 
     private static ImageTs parseImageTs(String dateString, @Nullable String offsetString) {
         var localDateTime = LocalDateTime.parse(dateString.trim(), EXIF_FORMAT);
-        if (offsetString != null && !offsetString.isEmpty()) {
+        offsetString = Strings.requireNonNullOrEmpty(offsetString);
+        if (!offsetString.isEmpty()) {
             var offset = ZoneOffset.of(offsetString.trim());
             var utcDateTime =
                     localDateTime
